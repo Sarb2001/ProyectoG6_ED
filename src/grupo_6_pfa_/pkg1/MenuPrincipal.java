@@ -1,17 +1,21 @@
 package grupo_6_pfa_.pkg1;
 
 import java.util.*;
-import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-public class MenuPrincipal {
-    private List<Empleados> listaEmpleados;
+import javax.swing.JOptionPane;
 
-    public MenuPrincipal() {
-        listaEmpleados = new ArrayList<>();
-    }
+public class MenuPrincipal {
 
     public void menu() {
+        ColaDeClientes colaClientes = new ColaDeClientes();
+        ColaCircularPlatillos platillos = new ColaCircularPlatillos();
+        PilaDeEmpleados pilaEmpleados = new PilaDeEmpleados();
+
+        platillos.insertarColaCircular(0, "Arroz con pollo", 3000, 4000);
+        platillos.insertarColaCircular(3, "Enchiladas", 3200, 4500);
+        platillos.insertarColaCircular(4, "Tacos de Carnitas", 3800, 5500);
+        platillos.insertarColaCircular(1, "Carnita Roja", 4000, 6000);
+        platillos.insertarColaCircular(2, "cantones", 4500, 6500);
+
         Scanner scan = new Scanner(System.in);
         boolean continuar = true;
 
@@ -22,40 +26,52 @@ public class MenuPrincipal {
                     + "\n3= Atender Cliente"
                     + "\n4 = Agregar Empleado"
                     + "\n5 = Despedir Empleado"
-                    + "\n6 = Salir"
+                    + "\n6 = Imprimir Empleados y Platillos"
+                    + "\n7 = Salir"
                     + "\nDigite una opcion..:");
 
             int opcionMenu = scan.nextInt();
 
             switch (opcionMenu) {
                 case 1:
-                    // Resto de la lógica para mostrar el menú (lista de platillos)
+
+                    System.out.println(platillos.toString());
+                    System.out.println("Si desea ordenar algo presione Enter...");
+                    scan.nextLine();
+                    scan.nextLine();
                     break;
                 case 2:
-                    // Resto de la lógica para agregar un cliente
+                    colaClientes.agregarCliente();
                     break;
                 case 3:
-                    // Resto de la lógica para atender un cliente
+                    colaClientes.atender();
+                    System.out.println("Para volver al menu digite Enter...");
+                    scan.nextLine();
+                    scan.nextLine();
                     break;
                 case 4:
-                    // Agregar un empleado
-                    System.out.println("Ingrese el ID del empleado:");
-                    int id = scan.nextInt();
-                    scan.nextLine(); // Limpiar el buffer
-                    System.out.println("Ingrese el nombre del empleado:");
-                    String nombre = scan.nextLine();
-                    System.out.println("Ingrese el puesto del empleado:");
-                    String puesto = scan.nextLine();
-
-                    Empleados nuevoEmpleado = new Empleados(id, nombre, puesto);
-                    listaEmpleados.add(nuevoEmpleado);
-                    System.out.println("Empleado agregado correctamente.");
+                    pilaEmpleados.agregarEmpleado();
+                    System.out.println("Para volver al menu digite Enter...");
+                    scan.nextLine();
+                    scan.nextLine();
                     break;
                 case 5:
-                    // Resto de la lógica para despedir un empleado
+
+                    pilaEmpleados.despedir();
+                    System.out.println("Para volver al menu digite Enter...");
+                    scan.nextLine();
+                    scan.nextLine();
                     break;
                 case 6:
-                    continuar = false; // Salir del bucle y del programa
+                    colaClientes.imprimirClientesYPlatillos();
+                    pilaEmpleados.imprimirEmpleadosOrdenadosPorID();
+                    System.out.println("Presione enter para salir");
+                    scan.nextLine();
+                    scan.nextLine();
+                    break;
+                case 7:
+                    System.out.println("Hasta Pronto");
+                    continuar = false;
                     break;
                 default:
                     System.out.println("Opción no válida.");
